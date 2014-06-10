@@ -96,3 +96,9 @@ module.exports = (grunt) ->
     'makeReport'
     'coverage'
   ])
+
+  grunt.registerTask('publish', [
+    'clean',
+    'src',
+    'release'
+  ])
