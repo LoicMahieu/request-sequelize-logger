@@ -1,6 +1,7 @@
 
 qs = require 'querystring'
-Q = require('q')
+Q = require 'q'
+debug = require('debug')('sequelize-logger')
 
 now = -> (new Date()).getTime()
 
@@ -41,6 +42,8 @@ module.exports =
     bodyLen = 0
 
     startLog = ->
+      debug('Start log')
+
       defer = Q.defer()
       model = Model.build(
         url: req.href
@@ -59,6 +62,8 @@ module.exports =
       promise = defer.promise
 
     endLog = () ->
+      debug('End log')
+
       largeBodyLimit = 40000
 
       body = parseResBody(buffer, bodyLen)
@@ -71,7 +76,7 @@ module.exports =
         statusCode: res.statusCode
         resHeaders: res.headers
         resJSON: json
-        resBody: body.substr(0, largeBodyLimit)
+        resBody: body?.substr?(0, largeBodyLimit)
         end: new Date()
         time: now() - start
 
@@ -87,7 +92,7 @@ module.exports =
           bodyLen += chunk.length
 
       req.once 'end', ->
-        promise.then ->
+        promise.done ->
           endLog()
 
     return req
