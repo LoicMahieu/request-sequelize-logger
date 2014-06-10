@@ -11,6 +11,11 @@ module.exports =
     model = null
 
     start = (data, cb) ->
+      # In some versions of sequelize, all columns are inserted, so res(headers|json|body) can not be null
+      data.resHeaders = '{}'
+      data.resJSON = '{}'
+      data.resBody = '{}'
+
       model = Model.build(data)
       model.save().done cb
 

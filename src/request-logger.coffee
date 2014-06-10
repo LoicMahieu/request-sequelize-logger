@@ -47,7 +47,7 @@ module.exports =
       method: req.method
       headers: req.headers
       querystring: qs.parse(req.uri.query)
-      body: parseBody(req)
+      body: parseBody(req) or ''
       start: new Date()
 
     start = now()
@@ -73,7 +73,7 @@ module.exports =
 
     data =
       statusCode: res.statusCode
-      resHeaders: res.headers
+      resHeaders: res.headers or {}
       resJSON: json
       resBody: body?.substr?(0, largeBodyLimit)
       end: new Date()
