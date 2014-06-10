@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "main": "lib/sequelize-logger.js",
   "scripts": {
+    "test": "grunt test",
     "prepublish": "grunt clean && grunt src"
   },
   "devDependencies": {
