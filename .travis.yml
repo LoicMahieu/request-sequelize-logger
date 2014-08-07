@@ -2,5 +2,8 @@ language: node_js
 node_js:
   - '0.10'
   - '0.8'
+services: mysql
+before_install:
+  - mysql -e "create database IF NOT EXISTS test;" -uroot
 before_script:
   - npm install -g grunt-cli
