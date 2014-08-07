@@ -1,50 +1,6 @@
 
-_ = require('lodash')
-
-propJSON = (prop, options) ->
-  _.extend
-    # works only with mysql because postgres does handle longtext
-    type: 'LONGTEXT'
-    allowNull: false
-    get: getterJSONValue prop, options
-    set: setterJSONValue prop, options
-  , options
-
-setterJSONValue = (prop, options) ->
-  setter = options?.set
-  delete options?.set
-
-  ((value) ->
-    if typeof value != 'string'
-      if setter
-        value = setter.call @, value
-
-      unless _.isUndefined(value)
-        value = JSON.stringify value, null, 2
-
-    @setDataValue prop, value
-  )
-
-getterJSONValue = (prop, options) ->
-  origin = null
-  deserialized = null
-  getter = options?.get
-  delete options?.get
-
-  (() ->
-    value = @getDataValue prop
-
-    if origin != value
-      origin = value
-
-      unless _.isUndefined(value)
-        deserialized = JSON.parse value
-
-      if getter
-        deserialized = getter.call @, deserialized
-
-    return deserialized
-  )
+_ = require 'lodash'
+json = require('sequelize-utils').property.json
 
 module.exports = (tableName, sequelize, DataTypes) ->
   notNullEmpty =
@@ -66,14 +22,14 @@ module.exports = (tableName, sequelize, DataTypes) ->
       type: DataTypes.STRING(10)
       validate: notNullEmpty
 
-    headers: propJSON('headers', validate: notNullEmpty)
-    querystring: propJSON('querystring', validate: notNullEmpty)
-    body: propJSON('body')
+    headers: json('headers', validate: notNullEmpty)
+    querystring: json('querystring', validate: notNullEmpty)
+    body: json('body')
 
     # Respond
     end: type: DataTypes.DATE
     time: type: DataTypes.INTEGER
     statusCode: type: DataTypes.STRING(20)
-    resHeaders: propJSON('resHeaders')
-    resJSON: propJSON('resJSON')
-    resBody: propJSON('resBody')
+    resHeaders: json('resHeaders')
+    resJSON: json('resJSON')
+    resBody: json('resBody')

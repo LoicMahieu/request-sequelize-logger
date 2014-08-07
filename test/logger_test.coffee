@@ -29,7 +29,7 @@ describe 'request-logger', ->
       expect(data.headers).to.deep.equal({
         host: 'httpbin.org'
       })
-      expect(data.body).to.undefined
+      expect(data.body).to.equal()
       expect(data.start).to.a('date')
 
       cb()

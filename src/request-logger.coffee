@@ -8,11 +8,14 @@ now = -> (new Date()).getTime()
 parseBody = (req) ->
   if req.body
     body = req.body.toString?() or req.body
-    try
-      body = qs.parse(body)
-    catch error
+
+    if req._json
       try
         body = JSON.parse(body)
+      catch error
+    else
+      try
+        body = qs.parse(body)
       catch error
 
     return body
@@ -47,7 +50,7 @@ module.exports =
       method: req.method
       headers: req.headers
       querystring: qs.parse(req.uri.query)
-      body: parseBody(req) or ''
+      body: parseBody(req)
       start: new Date()
 
     start = now()

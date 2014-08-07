@@ -7,20 +7,25 @@ module.exports =
 (tableName, sequelize, options) ->
   Model = require('./model')(tableName, sequelize, sequelize.constructor)
 
-  return (req) ->
+  log = (req) ->
     model = null
 
     start = (data, cb) ->
       # In some versions of sequelize, all columns are inserted, so res(headers|json|body) can not be null
-      data.resHeaders = '{}'
-      data.resJSON = '{}'
-      data.resBody = '{}'
+      data.resHeaders = {}
+      data.resJSON = {}
+      data.resBody = {}
 
       model = Model.build(data)
       model.save().done cb
 
     end = (data) ->
       model.setAttributes data
-      model.save()
+      model.save().done ->
+        req.emit 'logger-end', model
 
     logger(req, start, end)
+
+  log.Model = Model
+
+  return log
