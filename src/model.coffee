@@ -3,27 +3,24 @@ _ = require 'lodash'
 json = require('sequelize-utils').property.json
 
 module.exports = (tableName, sequelize, DataTypes) ->
-  notNullEmpty =
-    notNull: true
-    notEmpty: true
-
   Model = sequelize.define tableName,
     # Request
     start:
       type: DataTypes.DATE
-      validate:
-        notNull: true
+      allowNull: false
 
     url:
       type: DataTypes.STRING(500)
-      validate: notNullEmpty
+      allowNull: false
+      validate: notEmpty: true
 
     method:
       type: DataTypes.STRING(10)
-      validate: notNullEmpty
+      allowNull: false
+      validate: notEmpty: true
 
-    headers: json('headers', validate: notNullEmpty)
-    querystring: json('querystring', validate: notNullEmpty)
+    headers: json('headers', validate: notEmpty: true)
+    querystring: json('querystring', validate: notEmpty: true)
     body: json('body')
 
     # Respond
