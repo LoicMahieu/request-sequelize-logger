@@ -52,7 +52,7 @@ describe 'sequelize-logger', ->
       expect(model.statusCode).to.equal(200)
       expect(model.resHeaders).to.be.a('object')
       expect(model.resJSON).to.be.a('object')
-      expect(model.resBody).to.be.a('object')
+      expect(model.resBody).to.be.a('string')
       expect(model.time).to.a('number')
       expect(model.end).to.a('date')
 
@@ -81,7 +81,7 @@ describe 'sequelize-logger', ->
       expect(model.statusCode).to.equal(200)
       expect(model.resHeaders).to.be.a('object')
       expect(model.resJSON).to.be.a('object')
-      expect(model.resBody).to.be.a('object')
+      expect(model.resBody).to.be.a('string')
       expect(model.time).to.a('number')
       expect(model.end).to.a('date')
 
@@ -103,7 +103,7 @@ describe 'sequelize-logger', ->
       expect(model.statusCode).to.equal(200)
       expect(model.resHeaders).to.be.a('object')
       expect(model.resJSON).to.be.a('object')
-      expect(model.resBody).to.be.a('object')
+      expect(model.resBody).to.be.a('string')
       expect(model.time).to.a('number')
       expect(model.end).to.a('date')
 

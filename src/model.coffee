@@ -29,4 +29,6 @@ module.exports = (tableName, sequelize, DataTypes) ->
     statusCode: type: DataTypes.STRING(20)
     resHeaders: json('resHeaders')
     resJSON: json('resJSON')
-    resBody: json('resBody')
+    resBody:
+      type: 'LONGTEXT'
+      defaultValue: ''
