@@ -14,7 +14,6 @@ module.exports =
       # In some versions of sequelize, all columns are inserted, so res(headers|json|body) can not be null
       data.resHeaders = {}
       data.resJSON = {}
-      data.resBody = {}
 
       model = Model.build(data)
       model.save().done cb
