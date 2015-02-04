@@ -31,4 +31,3 @@ module.exports = (tableName, sequelize, DataTypes) ->
     resJSON: json('resJSON')
     resBody:
       type: 'LONGTEXT'
-      defaultValue: ''
