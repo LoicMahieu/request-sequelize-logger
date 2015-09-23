@@ -16,11 +16,11 @@ module.exports =
       data.resJSON = {}
 
       model = Model.build(data)
-      model.save().done cb
+      model.save().nodeify cb
 
     end = (data) ->
       model.setAttributes data
-      model.save().done ->
+      model.save().nodeify ->
         req.emit 'logger-end', model
 
     logger(req, start, end)
