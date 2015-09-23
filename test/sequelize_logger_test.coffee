@@ -26,7 +26,7 @@ describe 'sequelize-logger', ->
 
   before (done) ->
     logger = requireLogger()('test_sequelize_logger', sequelize, Sequelize)
-    sequelize.sync(force: true).done done
+    sequelize.sync(force: true).nodeify done
 
   before (done) ->
     server = connect()

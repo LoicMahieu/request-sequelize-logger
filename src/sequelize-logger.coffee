@@ -20,7 +20,7 @@ module.exports =
 
     end = (data) ->
       model.setAttributes data
-      model.save().nodeify ->
+      model.save().then ->
         req.emit 'logger-end', model
 
     logger(req, start, end)
