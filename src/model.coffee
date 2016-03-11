@@ -1,5 +1,4 @@
 
-_ = require 'lodash'
 json = require('sequelize-utils').property.json
 
 module.exports = (tableName, sequelize, DataTypes) ->

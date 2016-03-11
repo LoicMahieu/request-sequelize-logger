@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "debug": "^1.0.1",
-    "lodash": "^2.4.1",
     "q": "^1.0.1",
     "sequelize-utils": "0.0.10"
   }
