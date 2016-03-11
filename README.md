@@ -1,7 +1,7 @@
 request-sequelize-logger
 ========================
 
-Log requests made with [https://github.com/mikeal/request](request) in a [https://github.com/sequelize/sequelize](Sequelize) model.
+Log requests made with [request](https://github.com/request/request) in a [Sequelize](https://github.com/sequelize/sequelize) model.
 
 Usage:
 
