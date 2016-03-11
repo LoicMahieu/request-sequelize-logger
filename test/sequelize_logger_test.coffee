@@ -12,7 +12,9 @@ requireLogger = -> requireTest('lib/sequelize-logger')
 
 
 Sequelize = require 'sequelize'
-sequelize = new Sequelize('test', 'root', '')
+sequelize = new Sequelize('test', 'root', '', {
+  logging: false
+})
 
 chai = require 'chai'
 assert = chai.assert
