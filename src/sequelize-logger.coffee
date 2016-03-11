@@ -16,7 +16,8 @@ module.exports =
       data.resJSON = {}
 
       model = Model.build(data)
-      model.save().nodeify cb
+      Q.when(model.save())
+        .nodeify cb
 
     end = (data) ->
       model.setAttributes data
