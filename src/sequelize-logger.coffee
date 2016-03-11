@@ -1,5 +1,4 @@
 
-qs = require 'querystring'
 Q = require 'q'
 logger = require './request-logger'
 
