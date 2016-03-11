@@ -27,8 +27,8 @@
     "sequelize": "^3.19.3"
   },
   "dependencies": {
-    "debug": "^1.0.1",
-    "q": "^1.0.1",
-    "sequelize-utils": "0.0.10"
+    "debug": "^2.2.0",
+    "q": "^1.4.1",
+    "sequelize-utils": "0.0.12"
   }
 }
