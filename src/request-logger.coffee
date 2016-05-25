@@ -94,7 +94,7 @@ module.exports =
         bodyLen += chunk.length
 
     req.once 'end', ->
-      promise.done ->
+      promise.then ->
         endLog()
 
   return req
