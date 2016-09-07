@@ -19,13 +19,13 @@ module.exports =
 
       model = Model.build(data)
 
-      return model.save()
+      return Q.when(model.save())
         .catch logError
         .then -> cb()
 
     end = (data) ->
       model.setAttributes data
-      model.save()
+      Q.when(model.save())
         .catch logError
         .then -> req.emit 'logger-end', model
 
