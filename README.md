@@ -1,6 +1,8 @@
 request-sequelize-logger
 ========================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/LoicMahieu/request-sequelize-logger.svg)](https://greenkeeper.io/)
+
 Log requests made with [request](https://github.com/request/request) in a [Sequelize](https://github.com/sequelize/sequelize) model.
 
 Usage:
