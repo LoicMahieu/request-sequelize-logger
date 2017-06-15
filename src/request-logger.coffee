@@ -70,9 +70,12 @@ module.exports =
 
     body = parseResBody(buffer, bodyLen)
 
-    try
-      json = JSON.parse(body)
-    catch error
+    if body.length > largeBodyLimit
+      json = { error: 'JSON body too large.' }
+    else
+      try
+        json = JSON.parse(body)
+      catch error
 
     data =
       statusCode: res.statusCode
@@ -98,4 +101,3 @@ module.exports =
         endLog()
 
   return req
-
