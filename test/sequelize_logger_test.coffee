@@ -25,16 +25,16 @@ fixturesDir = path.join __dirname, '..', 'test/fixtures'
 
 describe 'sequelize-logger', ->
   logger = null
+  before (done) ->
+    server = connect()
+    server.use(serveStatic(fixturesDir))
+    server.listen(4000, done)
 
   describe 'with no hideSensitive', ->
     before (done) ->
       logger = requireLogger()('test_sequelize_logger', sequelize, Sequelize)
       sequelize.sync(force: true).nodeify done
 
-    before (done) ->
-      server = connect()
-      server.use(serveStatic(fixturesDir))
-      server.listen(4000, done)
 
     it 'is a function', ->
       expect(requireLogger()).to.be.a('function')
@@ -123,11 +123,6 @@ describe 'sequelize-logger', ->
       )
       sequelize.sync(force: true).nodeify done
 
-    before (done) ->
-      server = connect()
-      server.use(serveStatic(fixturesDir))
-      server.listen(4000, done)
-
     it 'is a function', ->
       expect(requireLogger()).to.be.a('function')
 
@@ -151,7 +146,7 @@ describe 'sequelize-logger', ->
           expect(model.resBody).to.be.a('string')
           expect(model.time).to.a('number')
           expect(model.end).to.a('date')
-          expect(model.resJSON.args).to.equal('*******')
+          expect(model.resJSON.args).to.equal('******')
 
           done()
         catch err
