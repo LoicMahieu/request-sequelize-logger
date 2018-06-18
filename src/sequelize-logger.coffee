@@ -1,6 +1,7 @@
 
 Q = require 'q'
 logger = require './request-logger'
+traverse = require 'traverse'
 
 module.exports =
 (tableName, sequelize, options) ->
@@ -17,6 +18,9 @@ module.exports =
       data.resHeaders = {}
       data.resJSON = {}
 
+      if (options.hideSensitive)
+        hideDataFromKeys(data, options.keysToHide, options.hideValue)
+
       model = Model.build(data)
 
       return Q.when(model.save())
@@ -24,6 +28,8 @@ module.exports =
         .then -> cb()
 
     end = (data) ->
+      if (options.hideSensitive)
+        hideDataFromKeys(data, options.keysToHide, options.hideValue)
       model.setAttributes data
       Q.when(model.save())
         .catch logError
@@ -34,3 +40,10 @@ module.exports =
   log.Model = Model
 
   return log
+
+
+hideDataFromKeys = (obj, keysToHide, hideValue) ->
+  traverse(obj).forEach((data) ->
+    if (~keysToHide.indexOf(@key))
+      @update(hideValue)
+  )
