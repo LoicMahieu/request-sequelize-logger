@@ -4,10 +4,12 @@ traverse = require 'traverse'
 cloneDeep = require 'lodash.clonedeep'
 logger = require './request-logger'
 
+objectAssign = require 'object-assign'
+
 module.exports =
 (tableName, sequelize, options) ->
   Model = require('./model')(tableName, sequelize, sequelize.constructor)
-  options = Object.assign(
+  options = objectAssign(
     hideKeys: []
     hideValue: '******'
   , options)

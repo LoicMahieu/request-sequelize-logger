@@ -33,6 +33,7 @@
   "dependencies": {
     "debug": "^2.2.0",
     "lodash.clonedeep": "^4.5.0",
+    "object-assign": "^4.1.1",
     "q": "^1.4.1",
     "sequelize-utils": "0.0.12",
     "traverse": "^0.6.6"
