@@ -1,7 +1,7 @@
 
 Q = require 'q'
 traverse = require 'traverse'
-cloneDeep = require 'lodash.cloneDeep'
+cloneDeep = require 'lodash.clonedeep'
 logger = require './request-logger'
 
 module.exports =
