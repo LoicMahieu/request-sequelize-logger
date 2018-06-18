@@ -1,11 +1,16 @@
 
 Q = require 'q'
-logger = require './request-logger'
 traverse = require 'traverse'
+cloneDeep = require 'lodash.cloneDeep'
+logger = require './request-logger'
 
 module.exports =
 (tableName, sequelize, options) ->
   Model = require('./model')(tableName, sequelize, sequelize.constructor)
+  options = Object.assign(
+    hideKeys: []
+    hideValue: '******'
+  , options)
 
   logError = (err) ->
     console.error err
@@ -18,8 +23,8 @@ module.exports =
       data.resHeaders = {}
       data.resJSON = {}
 
-      if (options.hideSensitive)
-        hideDataFromKeys(data, options.keysToHide, options.hideValue)
+      if (options.hideKeys.length > 0)
+        data = hideDataFromKeys(data, options.hideKeys, options.hideValue)
 
       model = Model.build(data)
 
@@ -28,8 +33,8 @@ module.exports =
         .then -> cb()
 
     end = (data) ->
-      if (options.hideSensitive)
-        hideDataFromKeys(data, options.keysToHide, options.hideValue)
+      if (options.hideKeys.length > 0)
+        data = hideDataFromKeys(data, options.hideKeys, options.hideValue)
       model.setAttributes data
       Q.when(model.save())
         .catch logError
@@ -42,8 +47,10 @@ module.exports =
   return log
 
 
-hideDataFromKeys = (obj, keysToHide, hideValue) ->
+hideDataFromKeys = (obj, hideKeys, hideValue) ->
+  obj = cloneDeep(obj)
+
   traverse(obj).forEach((data) ->
-    if (~keysToHide.indexOf(@key))
+    if (~hideKeys.indexOf(@key))
       @update(hideValue)
   )
