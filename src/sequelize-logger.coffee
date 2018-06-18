@@ -56,3 +56,5 @@ hideDataFromKeys = (obj, hideKeys, hideValue) ->
     if (~hideKeys.indexOf(@key))
       @update(hideValue)
   )
+
+  return obj

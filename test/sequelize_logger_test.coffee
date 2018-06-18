@@ -116,7 +116,7 @@ describe 'sequelize-logger', ->
     before (done) ->
       logger = requireLogger()('test_sequelize_logger', sequelize,
         hideSensitive: true
-        keysToHide: [
+        hideKeys: [
           'args'
         ]
         hideValue: '******'
